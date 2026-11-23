@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VEDcreates — Digital Art Portfolio</title>
+
+  <link rel="icon" type="image/png" href="img/vedcreates.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* --- RESET & GLOBAL VARIABLES --- */
+    :root {
+      --bg-color: #09090f;
+      --accent-purple: #c8b6ff;
+      --accent-glow: rgba(168, 85, 247, 0.6);
+      --text-main: #ffffff;
+      --text-muted: #9ca3af;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-blur: blur(16px);
+      --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* --- BRANDED TEXT SELECTION --- */
+    ::selection {
+      background: var(--accent-purple);
+      color: #09090f;
+    }
+
+    /* --- FIXED WEBKIT SCROLLBAR --- */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #a855f7, #6366f1);
+      border-radius: 999px;
+    }
+
+    /* --- PREMIUM BACKGROUND TEXTURE & GLOW --- */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(99, 102, 241, 0.12), transparent 45%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+      opacity: 0.03;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1300px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* --- STICKY STYLISH NAVBAR --- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      background: rgba(9, 9, 15, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #d8c5ff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(45deg, #fff, var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: var(--transition);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      transform-origin: bottom right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* --- CINEMATIC HERO SECTION & ENTRANCE ANIMATIONS --- */
+    .hero {
+      min-height: calc(100vh - 84px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .hero-tag {
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      color: var(--accent-purple);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.2s;
+    }
+
+    .hero h1 {
+      font-size: 4.5rem;
+      line-height: 1.15;
+      max-width: 1050px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: heroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.4s;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #c8b6ff 30%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      margin-top: 30px;
+      color: var(--text-muted);
+      max-width: 650px;
+      line-height: 1.8;
+      font-size: 18px;
+      font-weight: 300;
+      opacity: 0;
+      transform: translateY(25px);
+      animation: heroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.6s;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 45px;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes heroFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      padding: 16px 36px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: var(--accent-purple);
+      color: #09090f;
+      box-shadow: 0 4px 20px rgba(200, 182, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(200, 182, 255, 0.5);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* --- PREMIUM DRIFTING BACKGROUND GLOW ORBS --- */
+    .floating-glow {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .glow1 {
+      top: 5%;
+      left: -5%;
+      background: rgba(168, 85, 247, 0.3);
+      animation: driftGlowOne 22s infinite alternate ease-in-out;
+    }
+
+    .glow2 {
+      bottom: 15%;
+      right: -5%;
+      background: rgba(99, 102, 241, 0.3);
+      animation: driftGlowTwo 26s infinite alternate ease-in-out;
+    }
+
+    @keyframes driftGlowOne {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 40px) scale(1.15); }
+      100% { transform: translate(-20px, 80px) scale(0.95); }
+    }
+
+    @keyframes driftGlowTwo {
+      0% { transform: translate(0, 0) scale(1.1); }
+      50% { transform: translate(-80px, -50px) scale(0.9); }
+      100% { transform: translate(40px, 30px) scale(1.2); }
+    }
+
+    /* --- SECTIONS COMMON & DIVIDERS --- */
+    section {
+      padding: 140px 0;
+      position: relative;
+    }
+
+    /* Minimal low opacity layout borders */
+    section:not(:last-of-type)::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-title p {
+      color: var(--accent-purple);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .section-title h2 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    /* --- GALLERY GRID & REFLECTIVE CARDS --- */
+    .simple-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .art-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Staggered Entrance Animations */
+    .art-card:nth-child(1) { animation-delay: 0.1s; }
+    .art-card:nth-child(2) { animation-delay: 0.2s; }
+    .art-card:nth-child(3) { animation-delay: 0.3s; }
+    .art-card:nth-child(4) { animation-delay: 0.4s; }
+    .art-card:nth-child(5) { animation-delay: 0.5s; }
+    .art-card:nth-child(6) { animation-delay: 0.6s; }
+    .art-card:nth-child(7) { animation-delay: 0.7s; }
+    .art-card:nth-child(8) { animation-delay: 0.8s; }
+    .art-card:nth-child(9) { animation-delay: 0.9s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Premium Light Reflection Pseudo-Element Overlay */
+    .art-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, -20%), rgba(255, 255, 255, 0.12) 0%, transparent 50%);
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .art-card:hover::before {
+      opacity: 1;
+    }
+
+    .art-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(200, 182, 255, 0.35);
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.6), 
+        0 0 40px rgba(168, 85, 247, 0.18);
+    }
+
+    .img-container {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .art-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .art-card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Hover Details Overlay Configuration */
+    .card-info {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(9, 9, 15, 0.9) 0%, rgba(9, 9, 15, 0.2) 50%, rgba(9, 9, 15, 0) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 35px;
+      opacity: 0;
+      z-index: 4;
+      transition: opacity 0.4s ease;
+    }
+
+    .art-card:hover .card-info {
+      opacity: 1;
+    }
+
+    .card-info h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      transform: translateY(15px);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card-info p {
+      font-size: 13px;
+      color: var(--accent-purple);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transform: translateY(15px);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: 0.03s;
+    }
+
+    .art-card:hover .card-info h3,
+    .art-card:hover .card-info p {
+      transform: translateY(0);
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 80px 60px;
+      border-radius: 40px;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .about h2 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 35px;
+      letter-spacing: -0.5px;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      line-height: 1.9;
+      font-size: 17px;
+      font-weight: 300;
+      margin-bottom: 25px;
+      text-align: justify;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* --- FOOTER SECTION --- */
+    footer {
+      padding: 120px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    footer h2 {
+      font-size: 46px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    footer p.footer-desc {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .footer-links a i {
+      font-size: 18px;
+    }
+
+    .copyright {
+      color: #555562;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- RESPONSIVE TYPOGRAPHY & LAYOUTS --- */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+      .section-title h2, footer h2 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 20px 5%;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+      section {
+        padding: 90px 0;
+      }
+      .simple-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .img-container {
+        height: 320px;
+      }
+      .about {
+        padding: 50px 30px;
+        border-radius: 28px;
+      }
+      .about h2 {
+        font-size: 30px;
+      }
+      footer h2 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="floating-glow glow1"></div>
+  <div class="floating-glow glow2"></div>
+
+  <nav>
+    <div class="logo">VEDcreates</div>
+    <div class="nav-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <section class="hero">
+      <p class="hero-tag">Visualize • Explore • Design</p>
+      <h1>A digital universe of <span>art, visuals</span> & creative expression.</h1>
+      <p>Exploring intricate storytelling styles, traditional aesthetics, and futuristic digital illustrations through the evolving canvas of VEDcreates.</p>
+      
+      <div class="hero-buttons">
+        <a href="#gallery" class="btn btn-primary">Explore Gallery</a>
+        <a href="https://www.instagram.com/vedcreates/" target="_blank" class="btn btn-outline">Visit Instagram</a>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-title">
+        <p>Portfolio</p>
+        <h2>Featured Artworks</h2>
+      </div>
+
+      <div class="simple-gallery">
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/Ganpati Bappa.jpg" alt="Ganpati Bappa intricate digital illustration">
+            <div class="card-info">
+              <p>Devotional Art</p>
+              <h3>Ganpati Artwork</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/eye.jpg" alt="Expressive eye conceptual illustration">
+            <div class="card-info">
+              <p>Conceptual</p>
+              <h3>Eye Illustration</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/pichwai.jpg" alt="Traditional Pichwai style digital canvas painting">
+            <div class="card-info">
+              <p>Traditional Folk</p>
+              <h3>Pichwai Art</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/vedcreates.png" alt="VEDcreates vector avatar digital identity creation">
+            <div class="card-info">
+              <p>Graphic Design</p>
+              <h3>Digital Illustrations</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/madhubani.jpeg" alt="Intricate Madhubani folklore painting composition">
+            <div class="card-info">
+              <p>Traditional Folk</p>
+              <h3>Madhubani Art</h3>
+            </div>
+          </div>
+        </div> 
+        
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/sunflower.jpeg" alt="Vibrant sunflower botanical line art pattern">
+            <div class="card-info">
+              <p>Botanical Art</p>
+              <h3>Floral Artwork</h3>
+            </div>
+          </div>
+        </div> 
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/radhakrishna.png" alt="Radha Krishna digital portraits painting fusion">
+            <div class="card-info">
+              <p>Spiritual Digital</p>
+              <h3>Radha Krishna Art</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/warli.jpeg" alt="Tribal Warli wall art geometric design patterns">
+            <div class="card-info">
+              <p>Tribal Folk</p>
+              <h3>Warli Art</h3>
+            </div>
+          </div>
+        </div> 
+
+        <div class="art-card">
+          <div class="img-container">
+            <img src="img/pink.jpeg" alt="Abstract modern pink aesthetic design canvas">
+            <div class="card-info">
+              <p>Experimental</p>
+              <h3>Aesthetic Fusion</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="about">
+        <p class="small">The Artist</p>
+        <h2>VEDcreates – creative space</h2>
+
+        <div class="about-text">
+          <p>I'm Vedangi Indap, the creator and visual designer behind VEDcreates. For me, art is an open exploration—an ongoing masterclass in capturing culture, geometry, and modern visual aesthetics across completely different canvases.</p>
+          
+          <p>I love traveling between centuries with my styles, transitioning seamlessly from the complex tribal structures of traditional Indian folk-arts like Warli, Pichwai, and storytelling Madhubani paintings to structural geometric line-work found in detailed Mandala configurations.</p>
+          
+          <p>At the same time, I translate these age-old rhythms into the contemporary landscape using digital applications like Ibis Paint X to create expressive portraits, minimalist wallpapers, and vibrant vector layouts. Art, for me, doesn't sit inside a rigid box—it is an endless adventure to link imagination with genuine human connection.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <h2>Let’s build beautiful visuals together.</h2>
+      <p class="footer-desc">Open for creative collaborations, client commissions, digital concept design, and artistic cross-over projects.</p>
+
+      <div class="footer-links">
+        <a href="https://www.instagram.com/vedcreates/" target="_blank">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/vedangi-indap-626a56345" target="_blank">
+          <i class="fab fa-linkedin-in"></i> LinkedIn
+        </a>
+      </div>
+
+      <p class="copyright">
+        &copy; 2026 VEDcreates — Crafted with structural creativity &lt;3
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('.art-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
+        const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
+  </script>
+</body>
+</html>
